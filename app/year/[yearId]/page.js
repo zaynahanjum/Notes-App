@@ -1,19 +1,21 @@
 "use client";
-import { Footer } from '../../components/Footer.js'; 
-import { Header } from '../../components/Header.js'; 
+import { Footer } from '../../components/Footer.js';
+import { Header } from '../../components/Header.js';
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
-export default function YearPage({ params }) {
+export default function YearPage() {
   const router = useRouter();
-  const { year } = params;
+  const params = useParams();
+  const year = params.yearId;
+  console.log(year)
 
   const yearContent = {
     "1st": {
       emoji: "🎓",
       title: "First Year",
       description: "Welcome to your first year! This is where your journey begins.",
-      subjects: ["Mathematics", "Physics", "Chemistry", "English", "Programming Basics","Mechanics"],
+      subjects: ["Mathematics", "Physics", "Chemistry", "English", "Programming Basics", "Mechanics"],
     },
     "2nd": {
       emoji: "📖",
@@ -39,109 +41,109 @@ export default function YearPage({ params }) {
 
   return (
     <div>
-      <div>
-      <Header/>
-      </div>
-    <div style={{
-      minHeight: "100vh",
-      backgroundColor: "#f5f7fa",
-      padding: "40px 20px",
-    }}>
+      <Header />
       <div style={{
-        maxWidth: "800px",
-        margin: "0 auto",
+        minHeight: "100vh",
+        backgroundColor: "#f5f7fa",
+        padding: "40px 20px",
       }}>
-        {/* Back Button */}
-        <button
-          onClick={() => router.push("/")}
-          style={{
-            backgroundColor: "#3498db",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            padding: "12px 24px",
-            fontSize: "16px",
-            cursor: "pointer",
-            marginBottom: "30px",
-          }}
-         
-        >
-          ← Back to Home
-        </button>
-
-        {/* Year Card */}
         <div style={{
-          backgroundColor: "white",
-          borderRadius: "16px",
-          padding: "40px",
-      
+          maxWidth: "800px",
+          margin: "0 auto",
         }}>
+          {/* Back Button */}
+          <button
+            onClick={() => router.push("/")}
+            style={{
+              backgroundColor: "#3498db",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              padding: "12px 24px",
+              fontSize: "16px",
+              cursor: "pointer",
+              marginBottom: "30px",
+            }}
+
+          >
+            ← Back to Home
+          </button>
+
+          {/* Year Card */}
           <div style={{
-            fontSize: "80px",
-            textAlign: "center",
-            marginBottom: "20px",
-          }}>
-            {content.emoji}
-          </div>
+            backgroundColor: "white",
+            borderRadius: "16px",
+            padding: "40px",
 
-          <h1 style={{
-            fontSize: "36px",
-            color: "#2c3e50",
-            textAlign: "center",
-            marginBottom: "15px",
           }}>
-            {content.title}
-          </h1>
-
-          <p style={{
-            fontSize: "18px",
-            color: "#7f8c8d",
-            textAlign: "center",
-            marginBottom: "40px",
-            lineHeight: "1.6",
-          }}>
-            {content.description}
-          </p>
-
-          {/* Subjects List */}
-          <div>
-            <h2 style={{
-              fontSize: "24px",
-              color: "#2c3e50",
+            <div style={{
+              fontSize: "80px",
+              textAlign: "center",
               marginBottom: "20px",
             }}>
-              📚 Subjects
-            </h2>
-            
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "12px",
+              {content.emoji}
+            </div>
+
+            <h1 style={{
+              fontSize: "36px",
+              color: "#2c3e50",
+              textAlign: "center",
+              marginBottom: "15px",
             }}>
-              {content.subjects.map((subject, index) => (
-                <div
-                  key={index}
-                  style={{
-                    backgroundColor: "#f8f9fa",
-                    padding: "15px 20px",
-                    borderRadius: "8px",
-                    fontSize: "16px",
-                    color: "#2c3e50",
-                    border: "1px solid #e0e0e0",
-                  }}
-                >
-                  {subject}
-                </div>
-              ))}
+              {content.title}
+            </h1>
+
+            <p style={{
+              fontSize: "18px",
+              color: "#7f8c8d",
+              textAlign: "center",
+              marginBottom: "40px",
+              lineHeight: "1.6",
+            }}>
+              {content.description}
+            </p>
+
+            {/* Subjects List */}
+            <div>
+              <h2 style={{
+                fontSize: "24px",
+                color: "#2c3e50",
+                marginBottom: "20px",
+              }}>
+                📚 Subjects
+              </h2>
+
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+              }}>
+                {content.subjects.map((subject, index) => (
+                  <div
+                    onClick={() => router.push(`/year/${year}/subject/1`)}
+                    // onClick={() => router.push(`/subject/1`)}
+
+                    key={index}
+                    style={{
+                      backgroundColor: "#f8f9fa",
+                      padding: "15px 20px",
+                      borderRadius: "8px",
+                      fontSize: "16px",
+                      color: "#2c3e50",
+                      border: "1px solid #e0e0e0",
+                      cursor: "pointer"
+                    }}
+                  >
+                    {subject}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div>
-    <Footer/>
-    </div>
-    
+      <Footer />
+
     </div>
   );
 }
