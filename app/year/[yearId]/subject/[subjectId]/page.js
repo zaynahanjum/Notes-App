@@ -1,19 +1,22 @@
 "use client"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useParams } from "next/navigation"
 import View from "../../../../components/View"
 import Upload from "../../../../components/Upload"
-import {Header} from "../../../../components/Header"
-import {Footer} from "../../../../components/Footer"
+import { Header } from "../../../../components/Header"
+import { Footer } from "../../../../components/Footer"
 
 export default function NotesPage() {
+    const router = useRouter();
+    const {yearId, subjectId} = useParams();  //access data from url(query parameter)
+
     const [activeTab, setActiveTab] = useState("view")
 
     return (
         <div>
             <Header />
             <div className="my-4 mx-20">
-                <Head />
+                <Head year={yearId} subject={subjectId}/>
                 <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
                 {activeTab == "view" && <View />}
                 {activeTab == "upload" && <Upload />}
@@ -24,14 +27,14 @@ export default function NotesPage() {
     )
 }
 
-function Head() {
+function Head({year,subject}) {
     const router = useRouter()
 
     return (
         <div className="flex flex-row items-center gap-6">
             <div
                 onClick={() => {
-                    router.push('/year/1')
+                    router.push(`/year/${year}`)
                 }}
                 className="flex justify-center items-center h-8 w-8 p-2 border border-gray-300 rounded-md cursor-pointer">
                 <img
@@ -42,10 +45,10 @@ function Head() {
             </div>
             <div>
                 <h1 className="text-3xl font-bold">
-                    Maths 101 Notes
+                    {subject.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
                 </h1>
                 <p className="text-gray-500">
-                    Year 1 &nbsp; • &nbsp;Manage and access study materials
+                    Year {year} &nbsp; • &nbsp;Manage and access study materials
                 </p>
             </div>
 

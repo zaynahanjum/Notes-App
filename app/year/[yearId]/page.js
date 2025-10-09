@@ -120,7 +120,7 @@ export default function YearPage() {
               }}>
                 {content.subjects.map((subject, index) => (
                   <div
-                    onClick={() => router.push(`/year/${year}/subject/1`)}
+                    onClick={() => router.push(`/year/${year}/subject/${subject.toLowerCase().replace(/\s+/g, '-')}`)}
                     // onClick={() => router.push(`/subject/1`)}
 
                     key={index}
